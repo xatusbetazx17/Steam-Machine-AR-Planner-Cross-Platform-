@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Steam Machine AR Planner (iPhone + Android)</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body { margin:0; font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#0b0b0c; color:#fff; }
+    header { padding:14px 16px; position:sticky; top:0; backdrop-filter:blur(10px);
+      background:rgba(15,15,16,.62); border-bottom:1px solid rgba(255,255,255,.10); z-index:10; }
+    header h1 { font-size:16px; margin:0 0 4px; }
+    header p { margin:0; font-size:12px; color:rgba(255,255,255,.75); }
+    .wrap { padding:12px; display:grid; gap:12px; }
+    .viewer { height:min(70vh,640px); border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.12); background:#111; }
+    model-viewer { width:100%; height:100%; }
+    .panel { border-radius:22px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:14px; }
+    .label { font-size:12px; color:rgba(255,255,255,.75); margin-bottom:6px; }
+    select,button { width:100%; font-size:15px; padding:12px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); color:#fff; }
+    .dims { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .pill { padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14); font-size:12px; color:rgba(255,255,255,.85); }
+    .small { font-size:12px; color:rgba(255,255,255,.75); line-height:1.35; margin-top:10px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Steam Machine AR Planner</h1>
+  <p>Choose a setup → tap <b>Open AR</b> to place it on your desk.</p>
+</header>
+
+<div class="wrap">
+  <div class="viewer">
+    <model-viewer id="mv"
+      src="models/machine_only.glb"
+      ios-src="models/machine_only.usdz"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-scale="fixed"
+      camera-controls
+      shadow-intensity="0.8"
+      alt="Steam Machine AR model">
+    </model-viewer>
+  </div>
+
+  <div class="panel">
+    <div class="label">Setup / Connections</div>
+    <select id="preset">
+      <option value="machine_only">Steam Machine only</option>
+      <option value="machine_power_eth">Steam Machine + power + Ethernet cable</option>
+      <option value="desk_hdmi_eth">Full desk (monitor+keyboard+mouse) + HDMI + Ethernet</option>
+      <option value="desk_dp_eth">Full desk (monitor+keyboard+mouse) + DisplayPort + Ethernet</option>
+      <option value="desk_hdmi_wifi">Full desk (monitor+keyboard+mouse) + HDMI (Wi‑Fi)</option>
+      <option value="desk_hdmi_eth_hub">Full desk + HDMI + Ethernet + USB hub</option>
+    </select>
+
+    <div style="height:10px"></div>
+    <button id="openAR" type="button">Open AR (use camera)</button>
+
+    <div class="dims">
+      <span class="pill">Steam Machine: 156mm W</span>
+      <span class="pill">162.4mm D</span>
+      <span class="pill">152mm H</span>
+    </div>
+
+    <div class="small">
+      Best results: scan your desk for a few seconds so the phone locks the surface.
+      <br><br>
+      This is a <b>to‑scale block model</b> (simple shapes) for space planning.
+    </div>
+
+    <div class="small">
+      Hosting: Android WebXR needs <b>HTTPS</b>. iPhone uses <b>AR Quick Look</b> via USDZ.
+    </div>
+  </div>
+</div>
+
+<script>
+  const mv = document.getElementById('mv');
+  const preset = document.getElementById('preset');
+  const openAR = document.getElementById('openAR');
+
+  function setPreset(key) {
+    mv.src = `models/${key}.glb`;
+    mv.setAttribute('ios-src', `models/${key}.usdz`);
+  }
+
+  preset.addEventListener('change', () => setPreset(preset.value));
+
+  openAR.addEventListener('click', () => {
+    if (mv.activateAR) mv.activateAR();
+    else alert('AR not available. Try Safari (iPhone) or Chrome (Android).');
+  });
+</script>
+</body>
+</html>
