@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Steam Machine AR Planner (iPhone + Android)</title>
+  <title>Steam Machine AR Planner+ (iPhone + Android)</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body { margin:0; font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#0b0b0c; color:#fff; }
@@ -12,13 +12,13 @@
     header h1 { font-size:16px; margin:0 0 4px; }
     header p { margin:0; font-size:12px; color:rgba(255,255,255,.75); }
     .wrap { padding:12px; display:grid; gap:12px; }
-    .viewer { height:min(70vh,640px); border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.12); background:#111; }
+    .viewer { height:min(72vh,680px); border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.12); background:#111; }
     model-viewer { width:100%; height:100%; }
     .panel { border-radius:22px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:14px; }
     .label { font-size:12px; color:rgba(255,255,255,.75); margin-bottom:6px; }
     select,button { width:100%; font-size:15px; padding:12px; border-radius:14px;
       border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); color:#fff; }
-    .dims { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .pillwrap { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
     .pill { padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.14); font-size:12px; color:rgba(255,255,255,.85); }
     .small { font-size:12px; color:rgba(255,255,255,.75); line-height:1.35; margin-top:10px; }
@@ -26,8 +26,8 @@
 </head>
 <body>
 <header>
-  <h1>Steam Machine AR Planner</h1>
-  <p>Choose a setup → tap <b>Open AR</b> to place it on your desk.</p>
+  <h1>Steam Machine AR Planner+</h1>
+  <p>Complex setups: monitor arms, cable bundles, network gear, UPS, etc.</p>
 </header>
 
 <div class="wrap">
@@ -39,39 +39,46 @@
       ar-modes="webxr scene-viewer quick-look"
       ar-scale="fixed"
       camera-controls
-      shadow-intensity="0.8"
+      shadow-intensity="0.85"
+      exposure="1.0"
       alt="Steam Machine AR model">
     </model-viewer>
   </div>
 
   <div class="panel">
-    <div class="label">Setup / Connections</div>
+    <div class="label">Choose a configuration</div>
     <select id="preset">
-      <option value="machine_only">Steam Machine only</option>
-      <option value="machine_power_eth">Steam Machine + power + Ethernet cable</option>
-      <option value="desk_hdmi_eth">Full desk (monitor+keyboard+mouse) + HDMI + Ethernet</option>
-      <option value="desk_dp_eth">Full desk (monitor+keyboard+mouse) + DisplayPort + Ethernet</option>
-      <option value="desk_hdmi_wifi">Full desk (monitor+keyboard+mouse) + HDMI (Wi‑Fi)</option>
-      <option value="desk_hdmi_eth_hub">Full desk + HDMI + Ethernet + USB hub</option>
+      <option value="machine_only">Steam Machine only (no cables)</option>
+<option value="machine_power_eth">Steam Machine + power + Ethernet</option>
+<option value="basic_single_monitor_stand_hdmi_eth">Single monitor (stand) + HDMI + Ethernet + keyboard/mouse</option>
+<option value="single_monitor_arm_dp_eth_cable_bundle">Single monitor (arm) + DisplayPort + Ethernet + cable bundle</option>
+<option value="dual_monitors_arms_hdmi_dp_eth">Dual monitors (arms) + HDMI+DP + Ethernet + bundles</option>
+<option value="ultrawide_arm_speakers_webcam_wifi">Ultrawide (arm) + speakers + webcam + HDMI (Wi‑Fi)</option>
+<option value="desk_hub_external_ssd_many_usb">Desk + USB hub + external SSD + extra USB cables</option>
+<option value="streaming_mic_boom_webcam_dual_monitor_arms">Streaming: dual monitors (arms) + webcam + mic boom + cables</option>
+<option value="network_heavy_switch_router_ups_powerstrip">Network heavy: switch + router + UPS + power strip + cables</option>
+<option value="full_complex_two_monitors_arm_laptop_dock_speakers_network">Full complex: dual monitors + laptop + dock + speakers + network gear</option>
     </select>
 
     <div style="height:10px"></div>
     <button id="openAR" type="button">Open AR (use camera)</button>
 
-    <div class="dims">
+    <div class="pillwrap">
       <span class="pill">Steam Machine: 156mm W</span>
       <span class="pill">162.4mm D</span>
       <span class="pill">152mm H</span>
+      <span class="pill">Scale locked (1:1)</span>
     </div>
 
     <div class="small">
-      Best results: scan your desk for a few seconds so the phone locks the surface.
+      Tip: scan your desk for a few seconds so the phone locks the surface, then place it.
+      Walk around it to judge spacing.
       <br><br>
-      This is a <b>to‑scale block model</b> (simple shapes) for space planning.
+      This is a <b>to‑scale space planner</b> (simple shapes) so you can see how much space it occupies + cables.
     </div>
 
     <div class="small">
-      Hosting: Android WebXR needs <b>HTTPS</b>. iPhone uses <b>AR Quick Look</b> via USDZ.
+      Hosting: use <b>HTTPS</b> (GitHub Pages works). iPhone: Safari. Android: Chrome.
     </div>
   </div>
 </div>
@@ -87,7 +94,6 @@
   }
 
   preset.addEventListener('change', () => setPreset(preset.value));
-
   openAR.addEventListener('click', () => {
     if (mv.activateAR) mv.activateAR();
     else alert('AR not available. Try Safari (iPhone) or Chrome (Android).');
