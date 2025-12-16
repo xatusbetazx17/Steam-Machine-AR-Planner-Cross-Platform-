@@ -1,0 +1,252 @@
+#usda 1.0
+(
+    defaultPrim = "Scene"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Scene" {
+  def Scope "Looks" {
+    def Material "Mat_1" {
+      token outputs:surface.connect = </Scene/Looks/Mat_1/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.08, 0.09, 0.1)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+    def Material "Mat_2" {
+      token outputs:surface.connect = </Scene/Looks/Mat_2/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.04, 0.04, 0.05)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+    def Material "Mat_3" {
+      token outputs:surface.connect = </Scene/Looks/Mat_3/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.02, 0.02, 0.02)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+    def Material "Mat_4" {
+      token outputs:surface.connect = </Scene/Looks/Mat_4/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.1, 0.1, 0.11)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+    def Material "Mat_5" {
+      token outputs:surface.connect = </Scene/Looks/Mat_5/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.15, 0.15, 0.16)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+    def Material "Mat_6" {
+      token outputs:surface.connect = </Scene/Looks/Mat_6/PBR.outputs:surface>
+      def Shader "PBR" {
+        uniform token info:id = "UsdPreviewSurface"
+        color3f inputs:diffuseColor = (0.12, 0.12, 0.13)
+        float inputs:roughness = 0.68
+        float inputs:metallic = 0.06
+        token outputs:surface
+      }
+    }
+  }
+
+  def Xform "SteamMachine" {
+    double3 xformOp:translate = (0.0, 0.076, 0.0)
+    double3 xformOp:scale = (0.156, 0.152, 0.1624)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_1>
+    }
+  }
+
+  def Xform "DeskReferencePlate" {
+    double3 xformOp:translate = (0.15, 0.001, 0.15)
+    double3 xformOp:scale = (1.0, 0.002, 0.7)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_2>
+    }
+  }
+
+  def Xform "PowerCable" {
+    double3 xformOp:translate = (-0.35, 0.015, -0.12)
+    double3 xformOp:scale = (0.7, 0.01, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+  def Xform "ArmLeftBase" {
+    double3 xformOp:translate = (0.32, 0.015, -0.05)
+    double3 xformOp:scale = (0.08, 0.03, 0.08)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "ArmLeftPost" {
+    double3 xformOp:translate = (0.32, 0.18, -0.05)
+    double3 xformOp:scale = (0.03, 0.36, 0.03)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "ArmLeftReach" {
+    double3 xformOp:translate = (0.46, 0.3025, -0.05)
+    double3 xformOp:scale = (0.28, 0.025, 0.03)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "ArmRightBase" {
+    double3 xformOp:translate = (0.52, 0.015, -0.05)
+    double3 xformOp:scale = (0.08, 0.03, 0.08)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "ArmRightPost" {
+    double3 xformOp:translate = (0.52, 0.18, -0.05)
+    double3 xformOp:scale = (0.03, 0.36, 0.03)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "ArmRightReach" {
+    double3 xformOp:translate = (0.66, 0.3025, -0.05)
+    double3 xformOp:scale = (0.28, 0.025, 0.03)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_4>
+    }
+  }
+
+  def Xform "MonitorLeft24" {
+    double3 xformOp:translate = (0.46, 0.47, -0.22)
+    double3 xformOp:scale = (0.54, 0.34, 0.05)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_5>
+    }
+  }
+
+  def Xform "MonitorRight27" {
+    double3 xformOp:translate = (0.7, 0.475, -0.22)
+    double3 xformOp:scale = (0.6, 0.35, 0.05)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_5>
+    }
+  }
+
+  def Xform "Keyboard" {
+    double3 xformOp:translate = (0.36, 0.01, 0.33)
+    double3 xformOp:scale = (0.45, 0.02, 0.16)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_6>
+    }
+  }
+
+  def Xform "Mouse" {
+    double3 xformOp:translate = (0.62, 0.015, 0.33)
+    double3 xformOp:scale = (0.06, 0.03, 0.1)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_6>
+    }
+  }
+
+  def Xform "HDMICable" {
+    double3 xformOp:translate = (0.18, 0.015, -0.1)
+    double3 xformOp:scale = (0.58, 0.01, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+  def Xform "DisplayPortCable" {
+    double3 xformOp:translate = (0.18, 0.015, -0.08)
+    double3 xformOp:scale = (0.6, 0.01, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+  def Xform "EthernetCable" {
+    double3 xformOp:translate = (-0.35, 0.015, 0.12)
+    double3 xformOp:scale = (0.7, 0.01, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+  def Xform "BundleUpLeft" {
+    double3 xformOp:translate = (0.32, 0.17, -0.05)
+    double3 xformOp:scale = (0.01, 0.32, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+  def Xform "BundleUpRight" {
+    double3 xformOp:translate = (0.52, 0.17, -0.05)
+    double3 xformOp:scale = (0.01, 0.32, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    def Cube "Mesh" {
+      float size = 1
+      rel material:binding = </Scene/Looks/Mat_3>
+    }
+  }
+
+}
