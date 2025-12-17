@@ -1,0 +1,84 @@
+{
+  "presets": [
+    {
+      "key": "machine_only",
+      "label": "Steam Machine only (no cables)",
+      "footprint_cm": {
+        "w": 15.6,
+        "d": 16.2
+      }
+    },
+    {
+      "key": "machine_power_eth",
+      "label": "Steam Machine + power + Ethernet",
+      "footprint_cm": {
+        "w": 77.8,
+        "d": 25.0
+      }
+    },
+    {
+      "key": "basic_single_monitor_stand_hdmi_eth",
+      "label": "Single monitor (stand) + HDMI + Ethernet + keyboard/mouse",
+      "footprint_cm": {
+        "w": 139.0,
+        "d": 63.5
+      }
+    },
+    {
+      "key": "single_monitor_arm_dp_eth_cable_bundle",
+      "label": "Single monitor (arm) + DisplayPort + Ethernet + cable bundle",
+      "footprint_cm": {
+        "w": 156.0,
+        "d": 63.5
+      }
+    },
+    {
+      "key": "dual_monitors_arms_hdmi_dp_eth",
+      "label": "Dual monitors (arms) + HDMI+DP + Ethernet + bundles",
+      "footprint_cm": {
+        "w": 170.0,
+        "d": 65.5
+      }
+    },
+    {
+      "key": "ultrawide_arm_speakers_webcam_wifi",
+      "label": "Ultrawide (arm) + speakers + webcam + HDMI (Wi\u2011Fi)",
+      "footprint_cm": {
+        "w": 180.0,
+        "d": 66.0
+      }
+    },
+    {
+      "key": "desk_hub_external_ssd_many_usb",
+      "label": "Desk + USB hub + external SSD + extra USB cables",
+      "footprint_cm": {
+        "w": 139.0,
+        "d": 63.5
+      }
+    },
+    {
+      "key": "streaming_mic_boom_webcam_dual_monitor_arms",
+      "label": "Streaming: dual monitors (arms) + webcam + mic boom + cables",
+      "footprint_cm": {
+        "w": 170.0,
+        "d": 65.5
+      }
+    },
+    {
+      "key": "network_heavy_switch_router_ups_powerstrip",
+      "label": "Network heavy: switch + router + UPS + power strip + cables",
+      "footprint_cm": {
+        "w": 139.0,
+        "d": 77.5
+      }
+    },
+    {
+      "key": "full_complex_two_monitors_arm_laptop_dock_speakers_network",
+      "label": "Full complex: dual monitors + laptop + dock + speakers + network gear",
+      "footprint_cm": {
+        "w": 170.0,
+        "d": 79.5
+      }
+    }
+  ]
+}
