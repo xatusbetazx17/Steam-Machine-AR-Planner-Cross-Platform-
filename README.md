@@ -38,3 +38,19 @@ Steam Machine outer size used (true-scale):
 ## Use it
 Host over HTTPS (GitHub Pages), open `index.html` on your phone, select a preset, tap **Open AR**.
 
+
+# Steam Machine AR Planner+ v2
+
+This version adds:
+- iPhone Quick Look fragment: `#allowsContentScaling=0` (locks scaling)
+- A red "SetupFootprint" plate that shows the total occupied footprint of each preset
+
+Steam Machine size used (true-scale): 156mm (W) × 162.4mm (D) × 152mm (H)
+
+## Most common reasons AR placement feels wrong
+1) Not hosted on HTTPS (Android WebXR needs HTTPS)
+2) Not using Safari on iPhone / Chrome on Android
+3) Surface has low texture or bad lighting
+
+## Use it
+Host over HTTPS (GitHub Pages), open `index.html`, choose a preset, tap **Open AR**.
