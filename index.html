@@ -3,38 +3,70 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Steam Machine AR Planner+ (iPhone + Android)</title>
+  <title>Steam Machine AR Planner+ (User‑Friendly)</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body { margin:0; font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#0b0b0c; color:#fff; }
-    header { padding:14px 16px; position:sticky; top:0; backdrop-filter:blur(10px);
-      background:rgba(15,15,16,.62); border-bottom:1px solid rgba(255,255,255,.10); z-index:10; }
+    :root {
+      --bg: #0b0b0c;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --warn: rgba(255, 200, 0, .18);
+      --bad: rgba(255, 70, 70, .18);
+      --ok: rgba(70, 255, 170, .16);
+    }
+    body { margin:0; font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:var(--text); }
+    header { padding:14px 16px; position:sticky; top:0; z-index:10; backdrop-filter: blur(10px);
+      background: rgba(15,15,16,.62); border-bottom:1px solid rgba(255,255,255,.10); }
     header h1 { font-size:16px; margin:0 0 4px; }
-    header p { margin:0; font-size:12px; color:rgba(255,255,255,.75); }
+    header p { margin:0; font-size:12px; color:var(--muted); }
     .wrap { padding:12px; display:grid; gap:12px; }
-    .viewer { height:min(72vh,680px); border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.12); background:#111; }
+    .viewer { height:min(72vh,680px); border-radius:22px; overflow:hidden; border:1px solid var(--stroke); background:#111; }
     model-viewer { width:100%; height:100%; }
-    .panel { border-radius:22px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:14px; }
-    .label { font-size:12px; color:rgba(255,255,255,.75); margin-bottom:6px; }
+    .panel { border-radius:22px; background:var(--card); border:1px solid var(--stroke); padding:14px; }
+    .row { display:grid; gap:10px; }
+    .label { font-size:12px; color:var(--muted); margin-bottom:6px; }
     select,button { width:100%; font-size:15px; padding:12px; border-radius:14px;
-      border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); color:#fff; }
+      border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); color:var(--text); }
+    button.primary { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.26); font-weight:700; }
+    .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .pillwrap { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
     .pill { padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.14); font-size:12px; color:rgba(255,255,255,.85); }
-    .small { font-size:12px; color:rgba(255,255,255,.75); line-height:1.35; margin-top:10px; }
+      border:1px solid rgba(255,255,255,.14); font-size:12px; color:rgba(255,255,255,.88); }
+    .callout { border-radius:16px; border:1px solid rgba(255,255,255,.12); padding:10px 12px;
+      font-size:12px; color:var(--muted); line-height:1.35; }
+    .callout.ok { background: var(--ok); }
+    .callout.warn { background: var(--warn); }
+    .callout.bad { background: var(--bad); }
+    .steps { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .step { flex: 1 1 120px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.20);
+      padding:10px; font-size:12px; color:rgba(255,255,255,.82); }
+    .step b { display:block; margin-bottom:4px; }
+    details { margin-top:10px; border-radius:16px; border:1px solid rgba(255,255,255,.10);
+      padding:10px 12px; background: rgba(0,0,0,.22); }
+    summary { cursor:pointer; color:rgba(255,255,255,.88); font-weight:600; }
+    .small { font-size:12px; color:var(--muted); line-height:1.35; margin-top:8px; }
+    .overlay { position:fixed; inset:0; background: rgba(0,0,0,.72); display:none; align-items:center; justify-content:center;
+      padding:18px; z-index:50; }
+    .overlay .box { width:min(720px, 100%); background: rgba(18,18,20,.96); border:1px solid rgba(255,255,255,.14);
+      border-radius:22px; padding:16px; }
+    .overlay h2 { margin:0 0 8px; font-size:16px; }
+    .overlay p { margin:8px 0; font-size:12px; color:var(--muted); line-height:1.35; }
+    .overlay .actions { display:grid; gap:10px; margin-top:12px; }
   </style>
 </head>
 <body>
 <header>
   <h1>Steam Machine AR Planner+</h1>
-  <p>Complex setups: monitor arms, cable bundles, network gear, UPS, etc.</p>
+  <p>Pick a preset → scan surface → place it (true‑scale).</p>
 </header>
 
 <div class="wrap">
   <div class="viewer">
     <model-viewer id="mv"
       src="models/machine_only.glb"
-      ios-src="models/machine_only.usdz"
+      ios-src="models/machine_only.usdz#allowsContentScaling=0"
       ar
       ar-modes="webxr scene-viewer quick-look"
       ar-scale="fixed"
@@ -46,58 +78,138 @@
   </div>
 
   <div class="panel">
-    <div class="label">Choose a configuration</div>
-    <select id="preset">
-      <option value="machine_only">Steam Machine only (no cables)</option>
-<option value="machine_power_eth">Steam Machine + power + Ethernet</option>
-<option value="basic_single_monitor_stand_hdmi_eth">Single monitor (stand) + HDMI + Ethernet + keyboard/mouse</option>
-<option value="single_monitor_arm_dp_eth_cable_bundle">Single monitor (arm) + DisplayPort + Ethernet + cable bundle</option>
-<option value="dual_monitors_arms_hdmi_dp_eth">Dual monitors (arms) + HDMI+DP + Ethernet + bundles</option>
-<option value="ultrawide_arm_speakers_webcam_wifi">Ultrawide (arm) + speakers + webcam + HDMI (Wi‑Fi)</option>
-<option value="desk_hub_external_ssd_many_usb">Desk + USB hub + external SSD + extra USB cables</option>
-<option value="streaming_mic_boom_webcam_dual_monitor_arms">Streaming: dual monitors (arms) + webcam + mic boom + cables</option>
-<option value="network_heavy_switch_router_ups_powerstrip">Network heavy: switch + router + UPS + power strip + cables</option>
-<option value="full_complex_two_monitors_arm_laptop_dock_speakers_network">Full complex: dual monitors + laptop + dock + speakers + network gear</option>
-    </select>
+    <div class="row">
+      <div id="deviceCallout" class="callout ok">Loading device checks…</div>
 
-    <div style="height:10px"></div>
-    <button id="openAR" type="button">Open AR (use camera)</button>
+      <div>
+        <div class="label">Configuration</div>
+        <select id="preset"></select>
+      </div>
 
-    <div class="pillwrap">
-      <span class="pill">Steam Machine: 156mm W</span>
-      <span class="pill">162.4mm D</span>
-      <span class="pill">152mm H</span>
-      <span class="pill">Scale locked (1:1)</span>
+      <div class="grid2">
+        <button id="howTo" type="button">How to place accurately</button>
+        <button id="reset" type="button">Reset / Reload</button>
+      </div>
+
+      <button id="openAR" class="primary" type="button">Open AR (use camera)</button>
+
+      <div class="pillwrap">
+        <span class="pill">Steam Machine: 156mm W</span>
+        <span class="pill">162.4mm D</span>
+        <span class="pill">152mm H</span>
+        <span class="pill">Scale locked</span>
+      </div>
+
+      <div class="steps">
+        <div class="step"><b>Step 1</b>Pick a preset.</div>
+        <div class="step"><b>Step 2</b>Scan the desk for 3–5 seconds.</div>
+        <div class="step"><b>Step 3</b>Tap <b>Open AR</b> and place it.</div>
+      </div>
+
+      <details>
+        <summary>Why it may feel “off” sometimes</summary>
+        <div class="small">
+          AR usually detects <b>flat planes</b> (desk surface). It does not reliably detect the exact desk edge/corners.
+          For the best 1:1 feeling: strong lighting + textured surface + slow movement while scanning.
+        </div>
+      </details>
     </div>
+  </div>
+</div>
 
-    <div class="small">
-      Tip: scan your desk for a few seconds so the phone locks the surface, then place it.
-      Walk around it to judge spacing.
-      <br><br>
-      This is a <b>to‑scale space planner</b> (simple shapes) so you can see how much space it occupies + cables.
-    </div>
-
-    <div class="small">
-      Hosting: use <b>HTTPS</b> (GitHub Pages works). iPhone: Safari. Android: Chrome.
+<div id="overlay" class="overlay" role="dialog" aria-modal="true">
+  <div class="box">
+    <h2>Accurate placement tips</h2>
+    <p><b>Best trick:</b> put a sheet of paper or mousepad on the desk and scan that area first (more texture = better lock).</p>
+    <p>Move the phone slowly in small circles for 3–5 seconds, then place the setup. Avoid glossy reflections.</p>
+    <p>If the size feels wrong, hit <b>Reset / Reload</b>, scan again, and try placing closer to the desk center.</p>
+    <div class="actions">
+      <button id="closeOverlay" class="primary" type="button">Got it</button>
     </div>
   </div>
 </div>
 
 <script>
   const mv = document.getElementById('mv');
-  const preset = document.getElementById('preset');
+  const presetSel = document.getElementById('preset');
   const openAR = document.getElementById('openAR');
+  const resetBtn = document.getElementById('reset');
+  const howToBtn = document.getElementById('howTo');
+  const overlay = document.getElementById('overlay');
+  const closeOverlay = document.getElementById('closeOverlay');
+  const deviceCallout = document.getElementById('deviceCallout');
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+  function isAndroid() {
+    return /Android/.test(navigator.userAgent);
+  }
+  function isHTTPS() {
+    return location.protocol === 'https:' || location.hostname === 'localhost';
+  }
+
+  function setCallout() {
+    let msg = '';
+    let cls = 'callout ok';
+
+    if (!isHTTPS()) {
+      msg += '⚠️ Not HTTPS. Android AR usually needs HTTPS. Use GitHub Pages or another HTTPS host. ';
+      cls = 'callout warn';
+    }
+
+    if (isIOS()) {
+      msg += '✅ iPhone detected: use Safari. Scale is locked for 1:1 (no accidental pinch).';
+    } else if (isAndroid()) {
+      msg += '✅ Android detected: use Chrome. If AR fails, install/enable Google Play Services for AR (ARCore).';
+    } else {
+      msg += 'ℹ️ Desktop detected: preview in 3D here; AR needs a phone.';
+      cls = 'callout warn';
+    }
+
+    deviceCallout.className = cls;
+    deviceCallout.textContent = msg;
+  }
+
+  async function loadPresets() {
+    const res = await fetch('presets.json', { cache: 'no-store' });
+    const data = await res.json();
+    presetSel.innerHTML = '';
+    for (const p of data.presets) {
+      const opt = document.createElement('option');
+      opt.value = p.key;
+      let label = p.label;
+      if (p.footprint_cm && p.footprint_cm.w && p.footprint_cm.d) {
+        label += `  — footprint: ${p.footprint_cm.w}×${p.footprint_cm.d} cm`;
+      }
+      opt.textContent = label;
+      presetSel.appendChild(opt);
+    }
+    setPreset(presetSel.value || 'machine_only');
+  }
 
   function setPreset(key) {
     mv.src = `models/${key}.glb`;
-    mv.setAttribute('ios-src', `models/${key}.usdz`);
+    mv.setAttribute('ios-src', `models/${key}.usdz#allowsContentScaling=0`);
   }
 
-  preset.addEventListener('change', () => setPreset(preset.value));
+  presetSel.addEventListener('change', () => setPreset(presetSel.value));
+
   openAR.addEventListener('click', () => {
     if (mv.activateAR) mv.activateAR();
-    else alert('AR not available. Try Safari (iPhone) or Chrome (Android).');
+    else alert('AR not available. iPhone: Safari. Android: Chrome + Google Play Services for AR.');
   });
+
+  resetBtn.addEventListener('click', () => location.reload());
+
+  howToBtn.addEventListener('click', () => overlay.style.display = 'flex');
+  closeOverlay.addEventListener('click', () => overlay.style.display = 'none');
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.style.display = 'none';
+  });
+
+  setCallout();
+  loadPresets();
 </script>
 </body>
 </html>
